@@ -11,6 +11,10 @@ document.addEventListener("DOMContentLoaded", function () {
         cartItems = JSON.parse(localStorage.getItem("cartItems"));
         renderCart();
         }
+    if (localStorage.getItem("totalPrice")) {
+            totalPrice = JSON.parse(localStorage.getItem("total-price"));
+            renderCart();
+            }
 
     fetch('/products.json')
         .then(response => response.json())
@@ -60,6 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateTotalPrice(price) {
         totalPrice += price;
         totalPriceElement.textContent = totalPrice;
+        localStorage.setItem("totalPrice", JSON.stringify(totalPrice));
     }
 
 
@@ -67,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
         cartItems.push(product);
         localStorage.setItem("cartItems", JSON.stringify(cartItems));
     renderCart();
-        renderCart();
+        
     }
 
 
@@ -86,6 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
         totalPrice = 0;
         totalPriceElement.textContent = totalPrice;
         localStorage.removeItem("cartItems");
+        localStorage.removeItem("totalPrice");
         renderCart();;
     });
 
